@@ -1,0 +1,443 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE Definition SYSTEM "../dtd/ui.dtd">
+<Definition labelDebug="false" debug="false">
+
+    <Import url="[config.mod.template]button/simpleButton.xml" />
+    <Import url="[config.mod.template]window.xml" />
+    <Import url="[config.mod.template]button/iconButton.xml" />
+    <Import url="[config.mod.template]button/horizontalTabGreenLine.xml" />
+	<Import url="[config.mod.template]button/searchInput.xml" />
+
+    <Constants>
+        <Constant name="assets" value="[config.ui.skin]assets.swf|" />
+        <Constant name="css" value="[config.ui.skin]css/" />
+        <Constant name="common" value="[config.ui.skin]common/" />
+        <Constant name="texture" value="[config.ui.skin]texture/" />
+		<Constant name="bitmap" value="[config.ui.skin]bitmap/" />
+		<Constant name="slot" value="[config.ui.skin]texture/slot/" />
+		<Constant name="picto_uri"
+			value="[config.content.path]gfx/characteristics/characteristics.swf|" />
+		<Constant name="dungeon_uri"
+			value="[config.content.path]gfx/dungeons/" />
+
+		<Constant name="monsterSprite_uri" value="[config.gfx.path.monsters]" />
+
+		<Constant name="area_line_height" value="26" type="int" />
+
+		<Constant name="hpIconUri" value="[config.ui.skin]texture/icon_pv.png" />
+		<Constant name="apIconUri" value="[config.ui.skin]texture/icon_pa.png" />
+		<Constant name="mpIconUri" value="[config.ui.skin]texture/icon_pm.png" />
+
+		<Constant name="monsterGridLineHeight" value="100" type="int" />
+		<Constant name="monsterInfoLineCount" value="14" type="int" />
+		<Constant name="monsterDetailLineCount" value="34" type="int" />
+		<Constant name="monsterSlotLineCount" value="11" type="int" />
+
+		<Constant name="plusUri" value="[config.ui.skin]texture/icon_plus_grey.png" />
+		<Constant name="minusUri" value="[config.ui.skin]texture/icon_minus_grey.png" />
+    </Constants>
+
+    <window name="encyclopedia" title="[ui.drops.title]" iconUri="[local.texture]windowIcon/icon__0020_Bestiaire.png">
+        <Anchors>
+            <Anchor point="CENTER" relativePoint="CENTER">
+                <AbsDimension x="0" y="-50" />
+            </Anchor>
+        </Anchors>
+        <movable>true</movable>
+        <mouseEnabled>true</mouseEnabled>
+        <Size>
+            <AbsDimension x="1275" y="860" />
+        </Size>
+        <hintAvailable>true</hintAvailable>
+
+        <Content>
+            <Texture>
+                <Size>
+                    <RelDimension x="1" />
+                    <AbsDimension y="60" />
+                </Size>
+                <uri>[local.common]bg_green_line.png</uri>
+            </Texture>
+
+            <Container>
+                <Anchors>
+                    <Anchor>
+                        <AbsDimension x="200" y="18" />
+                    </Anchor>
+                </Anchors>
+
+                <horizontalTabGreenLine name="btn_tabItems">
+                </horizontalTabGreenLine>
+
+                <horizontalTabGreenLine name="btn_tabMonstres">
+                    <Anchors>
+                        <Anchor>
+                            <AbsDimension x="200" y="0" />
+                        </Anchor>
+                    </Anchors>
+                </horizontalTabGreenLine>   
+				<horizontalTabGreenLine name="btn_tabCroupiers">
+                    <Anchors>
+                        <Anchor>
+                            <AbsDimension x="400" y="0" />
+                        </Anchor>
+                    </Anchors>
+                </horizontalTabGreenLine>		
+				<horizontalTabGreenLine name="btn_tabSpirits">
+                    <Anchors>
+                        <Anchor>
+                            <AbsDimension x="600" y="0" />
+                        </Anchor>
+                    </Anchors>
+                </horizontalTabGreenLine>
+            </Container>
+
+            <Container name="uiCtr">
+                <Anchors>
+                    <Anchor>
+                        <AbsDimension x="3" y="61" />
+                    </Anchor>
+                </Anchors>
+                <Size>
+                    <AbsDimension x="1272" y="799" />
+                </Size>
+
+				<Grid name="gd_items">
+						<Anchors>
+							<Anchor>
+								<AbsDimension x="50" y="20" />
+							</Anchor>
+						</Anchors>
+						<Size>
+							<AbsDimension x="1172" y="650" />
+						</Size>
+						<rendererName>MultiGridRenderer</rendererName>
+						<rendererArgs>updateItem,getItemLineType,getItemDataLength,</rendererArgs>
+						<verticalScrollbarCss>[local.css]scrollBar.css</verticalScrollbarCss>
+						<slotWidth>1172</slotWidth>
+						<slotHeight>[local.monsterGridLineHeight]</slotHeight>
+						<hiddenRow>0</hiddenRow>
+
+						<Container name="ctr_items">
+							<Size>
+								<AbsDimension x="1172" y="70" />
+							</Size>
+
+							<Label name="lbl_name">
+								<Anchors>
+									<Anchor>
+										<AbsDimension x="110" y="8" />
+									</Anchor>
+								</Anchors>
+								<Size>
+									<AbsDimension x="350" y="20" />
+								</Size>
+								<cssClass>bold</cssClass>
+								<css>[local.css]normal2.css</css>
+							</Label>
+							<Texture name="tx_itemBg">
+								<Anchors>
+									<Anchor>
+										<AbsDimension x="5" y="9" />
+									</Anchor>
+								</Anchors>
+								<Size>
+									<AbsDimension x="82" y="82" />
+								</Size>
+								<uri>[local.texture]slot/emptySlot.png</uri>
+							</Texture>
+							<Texture name="tx_itemIcon">
+								<Anchors>
+									<Anchor>
+										<AbsDimension x="5" y="10" />
+									</Anchor>
+								</Anchors>
+								<Size>
+									<AbsDimension x="80" y="80" />
+								</Size>
+							</Texture>
+							<Grid name="gd_drops">
+								<Anchors>
+									<Anchor>
+										<AbsDimension x="110" y="45" />
+									</Anchor>
+								</Anchors>
+								<Size>
+									<AbsDimension x="695" y="45" />
+								</Size>
+								<rendererName>SlotGridRenderer</rendererName>
+								<rendererArgs>[local.texture]slot/slot_big_dark_background_empty.png,[local.texture]slot/over.png,,,,,[local.css]normal2.css,
+									false</rendererArgs>
+								<slotWidth>40</slotWidth>
+								<slotHeight>40</slotHeight>
+								<hPadding>6</hPadding>
+								<scrollDisplay>none</scrollDisplay>
+								<autoSelectMode>0</autoSelectMode>
+							</Grid>
+						</Container>
+				</Grid>
+				<Grid name="gd_monsters">
+						<Anchors>
+							<Anchor>
+								<AbsDimension x="50" y="20" />
+							</Anchor>
+						</Anchors>
+						<Size>
+							<AbsDimension x="1172" y="650" />
+						</Size>
+						<rendererName>MultiGridRenderer</rendererName>
+						<rendererArgs>updateMonster,getMonsterLineType,getItemDataLength,</rendererArgs>
+						<verticalScrollbarCss>[local.css]scrollBar.css</verticalScrollbarCss>
+						<slotWidth>1172</slotWidth>
+						<slotHeight>[local.monsterGridLineHeight]</slotHeight>
+						<hiddenRow>0</hiddenRow>
+						<visible>false</visible>
+						<Container name="ctr_monsters">
+							<Size>
+								<AbsDimension x="1172" y="70" />
+							</Size>
+
+							<Label name="lbl_name">
+								<Anchors>
+									<Anchor>
+										<AbsDimension x="110" y="8" />
+									</Anchor>
+								</Anchors>
+								<Size>
+									<AbsDimension x="350" y="20" />
+								</Size>
+								<cssClass>bold</cssClass>
+								<css>[local.css]normal2.css</css>
+							</Label>
+							<Texture name="tx_monsterBg">
+								<Anchors>
+									<Anchor>
+										<AbsDimension x="5" y="9" />
+									</Anchor>
+								</Anchors>
+								<Size>
+									<AbsDimension x="82" y="82" />
+								</Size>
+								<uri>[local.texture]slot/emptySlot.png</uri>
+							</Texture>
+							<Texture name="tx_monsterIcon">
+								<Anchors>
+									<Anchor>
+										<AbsDimension x="5" y="10" />
+									</Anchor>
+								</Anchors>
+								<Size>
+									<AbsDimension x="80" y="80" />
+								</Size>
+							</Texture>
+							<Grid name="gd_drops">
+								<Anchors>
+									<Anchor>
+										<AbsDimension x="110" y="45" />
+									</Anchor>
+								</Anchors>
+								<Size>
+									<AbsDimension x="695" y="45" />
+								</Size>
+								<rendererName>SlotGridRenderer</rendererName>
+								<rendererArgs>[local.texture]slot/slot_big_dark_background_empty.png,[local.texture]slot/over.png,,,,,[local.css]normal2.css,
+									false</rendererArgs>
+								<slotWidth>40</slotWidth>
+								<slotHeight>40</slotHeight>
+								<hPadding>6</hPadding>
+								<scrollDisplay>none</scrollDisplay>
+								<autoSelectMode>0</autoSelectMode>
+							</Grid>
+						</Container>
+					</Grid>
+					<Grid name="gd_dungeons">
+						<Anchors>
+							<Anchor>
+								<AbsDimension x="50" y="20" />
+							</Anchor>
+						</Anchors>
+						<Size>
+							<AbsDimension x="1172" y="650" />
+						</Size>
+						<rendererName>MultiGridRenderer</rendererName>
+						<rendererArgs>updateDungeon,getDungeonLineType,getDungeonDataLength,</rendererArgs>
+						<verticalScrollbarCss>[local.css]scrollBar.css</verticalScrollbarCss>
+						<slotWidth>1172</slotWidth>
+						<slotHeight>[local.monsterGridLineHeight]</slotHeight>
+						<hiddenRow>0</hiddenRow>
+						<visible>false</visible>
+						<Container name="ctr_dungeons">
+							<Size>
+								<AbsDimension x="1172" y="70" />
+							</Size>
+
+							<Label name="lbl_name">
+								<Anchors>
+									<Anchor>
+										<AbsDimension x="110" y="8" />
+									</Anchor>
+								</Anchors>
+								<Size>
+									<AbsDimension x="350" y="20" />
+								</Size>
+								<cssClass>bold</cssClass>
+								<css>[local.css]normal2.css</css>
+							</Label>
+							<Texture name="tx_dungeonBg">
+								<Anchors>
+									<Anchor>
+										<AbsDimension x="5" y="9" />
+									</Anchor>
+								</Anchors>
+								<Size>
+									<AbsDimension x="82" y="82" />
+								</Size>
+								<uri>[local.texture]slot/emptySlot.png</uri>
+							</Texture>
+							<Texture name="tx_dungeonIcon">
+								<Anchors>
+									<Anchor>
+										<AbsDimension x="5" y="10" />
+									</Anchor>
+								</Anchors>
+								<Size>
+									<AbsDimension x="80" y="80" />
+								</Size>
+							</Texture>
+							<Grid name="gd_drops">
+								<Anchors>
+									<Anchor>
+										<AbsDimension x="110" y="45" />
+									</Anchor>
+								</Anchors>
+								<Size>
+									<AbsDimension x="695" y="45" />
+								</Size>
+								<rendererName>SlotGridRenderer</rendererName>
+								<rendererArgs>[local.texture]slot/slot_big_dark_background_empty.png,[local.texture]slot/over.png,,,,,[local.css]normal2.css,
+									false</rendererArgs>
+								<slotWidth>40</slotWidth>
+								<slotHeight>40</slotHeight>
+								<hPadding>6</hPadding>
+								<scrollDisplay>none</scrollDisplay>
+								<autoSelectMode>0</autoSelectMode>
+							</Grid>
+						</Container>
+					</Grid>
+					<Grid name="gd_spirits">
+						<Anchors>
+							<Anchor>
+								<AbsDimension x="50" y="20" />
+							</Anchor>
+						</Anchors>
+						<Size>
+							<AbsDimension x="1172" y="650" />
+						</Size>
+						<rendererName>MultiGridRenderer</rendererName>
+						<rendererArgs>updateSpirit,getSpiritLineType,getSpiritDataLength,</rendererArgs>
+						<verticalScrollbarCss>[local.css]scrollBar.css</verticalScrollbarCss>
+						<slotWidth>1172</slotWidth>
+						<slotHeight>[local.monsterGridLineHeight]</slotHeight>
+						<hiddenRow>0</hiddenRow>
+						<visible>false</visible>
+						<Container name="ctr_spirits">
+							<Size>
+								<AbsDimension x="1172" y="70" />
+							</Size>
+
+							<Label name="lbl_name">
+								<Anchors>
+									<Anchor>
+										<AbsDimension x="110" y="8" />
+									</Anchor>
+								</Anchors>
+								<Size>
+									<AbsDimension x="350" y="20" />
+								</Size>
+								<cssClass>bold</cssClass>
+								<css>[local.css]normal2.css</css>
+							</Label>
+							<Texture name="tx_spiritBg">
+								<Anchors>
+									<Anchor>
+										<AbsDimension x="5" y="9" />
+									</Anchor>
+								</Anchors>
+								<Size>
+									<AbsDimension x="82" y="82" />
+								</Size>
+								<uri>[local.texture]slot/emptySlot.png</uri>
+							</Texture>
+							<Texture name="tx_spiritIcon">
+								<Anchors>
+									<Anchor>
+										<AbsDimension x="5" y="10" />
+									</Anchor>
+								</Anchors>
+								<Size>
+									<AbsDimension x="80" y="80" />
+								</Size>
+							</Texture>		
+							<Texture name="tx_spiritCharacIcon">
+								<Anchors>
+									<Anchor>
+										<AbsDimension x="345" y="5" />
+									</Anchor>
+								</Anchors>
+								<Size>
+									<AbsDimension x="32" y="32" />
+								</Size>
+							</Texture>
+							<Grid name="gd_drops">
+								<Anchors>
+									<Anchor>
+										<AbsDimension x="110" y="45" />
+									</Anchor>
+								</Anchors>
+								<Size>
+									<AbsDimension x="695" y="45" />
+								</Size>
+								<rendererName>SlotGridRenderer</rendererName>
+								<rendererArgs>[local.texture]slot/slot_big_dark_background_empty.png,[local.texture]slot/over.png,,,,,[local.css]normal2.css,
+									false</rendererArgs>
+								<slotWidth>40</slotWidth>
+								<slotHeight>40</slotHeight>
+								<hPadding>6</hPadding>
+								<scrollDisplay>none</scrollDisplay>
+								<autoSelectMode>0</autoSelectMode>
+							</Grid>
+						</Container>
+					</Grid>
+				<Container>			
+					<Anchors>
+						<Anchor point="TOPRIGHT" relativePoint="TOPRIGHT">
+							<AbsDimension x="-70" y="5" />
+						</Anchor>
+					</Anchors>
+					<Size>
+						<AbsDimension x="300" y="100" />
+					</Size>
+					<searchInput name="search" width="300" btnCloseName="btn_resetSearch">
+						<themeDataId>bg_small_border_dark</themeDataId>
+					</searchInput>
+				</Container>
+            </Container>
+
+        </Content>
+        <OverFrameContent>
+            <Texture>
+                <Anchors>
+                    <Anchor>
+                        <AbsDimension x="7" y="37" />
+                    </Anchor>
+                </Anchors>
+                <Size>
+                    <RelDimension x="1" />
+                    <AbsDimension y="44" />
+                </Size>
+                <uri>[local.common]bar_horizontal.png</uri>
+            </Texture>
+
+        </OverFrameContent>
+    </window>
+</Definition>

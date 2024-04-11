@@ -1,0 +1,4 @@
+log4as.xml=RestoreIfPatched
+META-INF/AIR/application.xml=RestoreIfPatched
+log4as-reg.xml=RestoreIfPatched
+META-INF/AIR/debug=RestoreIfPatched

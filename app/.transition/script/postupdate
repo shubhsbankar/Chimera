@@ -1,0 +1,114 @@
+print("Running Dofus postupdate script...")
+
+var writableFiles = [
+"log4as.xml",
+"log4as-reg.xml",
+"META-INF/AIR/debug",
+"META-INF/AIR/application.xml",
+"../Resources/META-INF/AIR/debug",
+"../Resources/META-INF/AIR/application.xml"
+]
+for (i = 0; i < writableFiles.length; i++) {
+    file = File(api.env("PROJECT_DIR") + "/" + writableFiles[i])
+    if(file.exists) {
+        print("Set write permissions for everyone on " + file.path)
+        api.setFilePolicy(writableFiles[i], "RestoreIfPatched")
+        if(!file.setPermissions(File.ReadOwner | File.WriteOwner | File.ReadGroup | File.WriteGroup | File.ReadOther | File.WriteOther)) {
+            print("Can not set permissions on " + file.path)
+        }
+    }
+}
+
+function symlink(base, target, link)
+{
+    if(typeof File.symlink != 'function')
+        return false
+    if(File(base + link).exists)
+    {
+        print("Symlink or file " + File(base + link).abspath + " already exists")
+        return false
+    }
+    if(!File(base + target).exists)
+    {
+        print("Symlink target " + File(base + target).abspath + " does not exists")
+        return false
+    }
+
+    return File.symlink(target, base + link)
+}
+
+WINE_NOT_INSTALLED=false
+
+if(api.osname == "linux")
+{
+    file = File(api.env("PROJECT_DIR") +"/Dofus.sh")
+    if(file.exists)
+        file.remove()
+    file.write("#!/bin/sh\nwine "+api.env("PROJECT_DIR")+"/Dofus.exe \"$@\"\nexit $?")
+    file.setExecutable(true)
+    
+    print("Checking Wine installation...")
+    WINE_NOT_INSTALLED = api.execute(["which", "wine"]) != 0
+}
+
+if(api.osname == "windows") {
+    file = File(api.env("PROJECT_DIR") +"/META-INF/AIR/publisherid")
+    if(file.exists) {
+        file.remove()
+    }
+}
+
+if(api.osname == "macosx") {
+    //Read the bundle id & disable appnap
+    if(typeof "PlistConfigurationFile" != 'undefined') {
+        plistpath = api.env("PROJECT_DIR") +"/../Info.plist"
+        infoplist = new IniConfigurationFile(plistpath)
+        bundleId = infoplist.value("CFBundleIdentifier")
+        if(bundleId) {
+            print("Disabling AppNap for " + bundleId)
+            if(api.execute(["defaults", "write", bundleId, "NSAppSleepDisabled", "-bool", "Yes"]) == 0) {
+                print("AppNap disabled")
+            }
+            else {
+                print("AppNap *NOT* disabled")
+            }
+        }
+        else {
+            print("Unable to determine Dofus's bundle id from " + plistpath)
+        }
+    }
+}
+
+if(updater.getSetting("target") == "steam") {
+    file = File(api.env("PROJECT_DIR") +"/steam_appid.txt")
+    if(!file.exists) {
+        file.write("254300")
+        api.addNode("steam_appid.txt")
+    }
+}
+
+trads_package_instruction = {
+    "fr":"Merci de suivre la procédure d'installation de \"$PACKAGE\"",
+    "en":"Please follow the instruction to install $PACKAGE",
+    "de":"Bitte befolgt die Anleitung zum Installieren von $PACKAGE",
+    "es":"Sigue el procedimiento de instalación de $PACKAGE",
+    "it":"Segui la procedura di installazione di $PACKAGE",
+    "pt":"Favor seguir o procedimento de instalação de $PACKAGE",
+    "ru":"Пожалуйста, следуйте процедуре установки $PACKAGE",
+    "ja":"$PACKAGEインストール手順に従ってください。"
+}
+
+function tr(map) {
+    lang = api.env("USER_LANG")
+    if(api.env("USER_LANG") in map )
+        return map[lang]
+    if("en" in map)
+        return map["en"]
+    if("fr" in map)
+        return map["fr"]
+}
+
+if(WINE_NOT_INSTALLED) {
+    print("Wine still not installed")
+    updater.displayError(tr(trads_package_instruction).replace("$PACKAGE", "Wine (https://www.winehq.org/)"))
+}

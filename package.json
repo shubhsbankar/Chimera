@@ -1,0 +1,41 @@
+{
+  "name": "chimera-launcher",
+  "version": "1.0.7",
+  "description": "This is an app launcher developed with ElectronJS.",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ./main.js",
+    "electron": "electron ./main.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "electron-packager .",
+    "dist": "electron-builder"
+  },
+  "build": {
+    "appId": "com.chimera.launcher",
+    "win": {
+      "target": "nsis"
+    },
+    "directories": {
+      "output": "dist"
+    }
+  },
+  "repository": "https://github.com/ChimeraRepo/Chimera-launcher",
+  "publish": {
+    "provider": "github",
+    "releaseType": "release"
+  },
+  "author": "Nenad Blagov",
+  "license": "ISC",
+  "devDependencies": {
+    "electron": "^29.1.0",
+    "electron-builder": "^24.13.3",
+    "electron-reload": "^2.0.0-alpha.1",
+    "electron-reloader": "^1.2.3"
+  },
+  "dependencies": {
+    "discord-rpc": "^4.0.1",
+    "discord-rpc-electron": "^4.0.1",
+    "electron-packager": "^17.1.2",
+    "electron-updater": "^6.1.8"
+  }
+}
