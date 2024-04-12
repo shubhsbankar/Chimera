@@ -19,7 +19,7 @@
       "output": "dist"
     }
   },
-  "repository": "https://github.com/ChimeraRepo/Chimera-launcher",
+  "repository": "https://github.com/ChimeraRepo/Chimera",
   "publish": {
     "provider": "github",
     "releaseType": "release"
