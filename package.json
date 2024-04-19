@@ -1,7 +1,7 @@
 {
-  "name": "chimera-launcher",
+  "name": "Chimera",
   "version": "1.0.7",
-  "description": "This is an app launcher developed with ElectronJS.",
+  "description": "UpLauncher Chimera.",
   "main": "main.js",
   "scripts": {
     "start": "electron ./main.js",
@@ -11,9 +11,25 @@
     "dist": "electron-builder"
   },
   "build": {
+    "nsis": {
+      "oneClick": false,
+      "perMachine": true,
+      "allowElevation": true,
+      "allowToChangeInstallationDirectory": true,
+      "deleteAppDataOnUninstall": false,
+      "displayLanguageSelector": false,
+      "unicode": true,
+      "shortcutName": "Chimera UpLauncher",
+      "warningsAsErrors": true,
+      "runAfterFinish": false,
+      "createDesktopShortcut": "always",
+      "createStartMenuShortcut": true,
+      "menuCategory": false
+    },
     "appId": "com.chimera.launcher",
     "win": {
-      "target": "nsis"
+      "target": "nsis",
+      "requestedExecutionLevel": "requireAdministrator"
     },
     "directories": {
       "output": "dist"
@@ -24,7 +40,7 @@
     "provider": "github",
     "releaseType": "release"
   },
-  "author": "Nenad Blagov",
+  "author": "Grimsky",
   "license": "ISC",
   "devDependencies": {
     "electron": "^29.1.0",
@@ -33,9 +49,13 @@
     "electron-reloader": "^1.2.3"
   },
   "dependencies": {
+    "adm-zip": "^0.5.12",
+    "axios": "^1.6.8",
     "discord-rpc": "^4.0.1",
     "discord-rpc-electron": "^4.0.1",
     "electron-packager": "^17.1.2",
-    "electron-updater": "^6.1.8"
+    "electron-updater": "^6.1.8",
+    "net": "^1.0.2",
+    "shell": "^0.5.1"
   }
 }

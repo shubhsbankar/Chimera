@@ -20,6 +20,7 @@ body {
     font-family: Poppins !important;
     font-weight: 400;
     font-style: normal;
+    -webkit-app-region: drag;
 }
 
 .bold {
@@ -87,4 +88,8 @@ a {
 
 .modal-backdrop {
     background-color: transparent !important;
+ }
+ 
+ .hide {
+    display: none
  }

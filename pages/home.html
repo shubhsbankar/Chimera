@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chimera - Desktop App Launcher</title>
+    <title>Chimera UpLauncher</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="../assets/css/global.css">
@@ -102,10 +102,21 @@
         <img src="../assets/img/bg.png" class="h-100 position-absolute" style="left: 50%; transform: translateX(-50%);"
             alt="">
 
-        <img src="../assets/img/guide.png" class="position-absolute" id="userGuide" alt="">
-        <img src="../assets/img/shop.png" class="position-absolute" id="shoppingCart" alt="">
 
-        <img src="../assets/img/discord.png" class="position-absolute" id="discordIcon" alt="">
+        <a href="https://docs.google.com/document/d/1evIwKZhYmvT4kO-bc1ox8bXhQNi9wekl10ZNSMWJr8Y/edit" target="_blank">
+          <img src="../assets/img/guide.png" class="position-absolute" id="userGuide" alt="">
+        </a>
+
+        <a href="https://vitrine.store.playerlands.com/" target="_blank">
+          <img src="../assets/img/shop.png" class="position-absolute" id="shoppingCart" alt="">
+        </a>
+
+        <a href="https://discord.gg/x7YBTpFxsV" target="_blank">
+          <img src="../assets/img/discord.png" class="position-absolute" id="discordIcon" alt="">
+        </a>
+        
+
+        
         <img src="../assets/img/settings.png" class="position-absolute" id="settingsIcon" alt="" data-bs-toggle="modal"
             data-bs-target="#settingsModal">
 
@@ -122,13 +133,13 @@
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content" style="background-color: rgba(17, 24, 48, 0.685);">
                     <div class="modal-header border-0">
-                        <h5 class="modal-title text-white">Settings</h5>
+                        <h5 class="modal-title text-white">Paramètres :</h5>
                         <h3 type="button" class="btn close ms-auto" data-bs-backdrop="false" data-bs-dismiss="modal" aria-label="Close">
                             <i class="fa fa-close text-white"></i>
                         </h3>
                     </div>
                     <div class="modal-body">
-                        <p class="text-white">Launch times:</p>
+                        <p class="text-white">Nombre de pages Dofus:</p>
                         <div class="row">
                             <div class="col md-4">
                                 <form action="">
@@ -149,8 +160,8 @@
                         </div>
                     </div>
                     <div class="modal-footer border-0">
-                        <button type="button" class="btn btn-primary" onclick="saveSettings()">Save</button>
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary" onclick="saveSettings()">Appliquer</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
                     </div>
                 </div>
             </div>
@@ -161,10 +172,14 @@
     <script>
         let launchTimes = localStorage.getItem('launchTimes');
         if (!launchTimes) {
+            
             launchTimes = 1;
+              console.log(`${launchTimes} 'first if'`);
         }
         else {
+             
             launchTimes = parseInt(launchTimes);
+             console.log(`${launchTimes} 'second if'`);
         }
 
         console.log(launchTimes);
@@ -176,9 +191,10 @@
     <script>
         function launchExeApp() {
             if (window.ipcRenderer) {
-                for (let i = 0; i < launchTimes; i++) {
-                    window.ipcRenderer.send('launch-exe-app');
-                }
+                //for (let i = 0; i < launchTimes; i++) {
+                    console.log(`${launchTimes}`);
+                    window.ipcRenderer.send('launch-exe-app',launchTimes);
+                //}
             } else {
                 console.error('ipcRenderer is not available');
             }
@@ -191,6 +207,7 @@
         }
 
         document.getElementById('dofus-run-button').addEventListener('click', function () {
+            console.log("Play button clicked")
             launchExeApp();
         });
         document.getElementById('close').addEventListener('click', function () {
