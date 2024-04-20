@@ -40,7 +40,7 @@ function createSplashWindow() {
     updater = new Updater({
       versionUrl: 'http://5.254.118.206/upl/updater.version',
       patchUrl: 'https://drive.usercontent.google.com/download?id=1-F4juX4kcbZtrPuMg9O3tP6QOfWR8bc8&export=download&authuser=0',
-      appfirstpartUrl: 'https://drive.usercontent.google.com/download?id=1jikwy5ACfPrD5IBKF943HE12HlfE4O8H&export=download&authuser=0&confirm=t&uuid=699d3b6b-6f1f-4c8b-8e6d-ab0cb196ea0f&at=APZUnTVnLKLCMXkM4LsOH8c8itmp%3A1713402049237',
+      appUrl: 'https://drive.google.com/file/d/12i9jLU5-qShJptNAZ7ELnV0aFUnaOK1v/view?usp=sharing',
       localVersionFile: './updater.version',
       splash,
       createMainWindow
